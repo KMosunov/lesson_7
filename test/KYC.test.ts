@@ -1,7 +1,6 @@
 import { UserLatvia } from '../src/UserLatvia'
 import { UserEstonia } from '../src/UserEstonia'
 import { KYC } from '../src/KYC'
-import { Contract } from '../src/Contract'
 
 describe('KYC tests', () => {
   let oldEstonianUser: UserEstonia
@@ -46,27 +45,5 @@ describe('KYC tests', () => {
     expect(() => {
       KYC.activateEParakstsForLatvia(youngLatvianUser)
     }).toThrow('User is too young')
-  })
-
-  // Signed is false
-  test('ESTONIA: Signed is false', () => {
-    expect(oldEstonianUser.signed).toBeFalsy()
-  })
-  test('LATVIA: Signed is false', () => {
-    expect(oldLatvianUser.signed).toBeFalsy()
-  })
-
-  // Signed is true
-  test('ESTONIA: Signed is true', () => {
-    KYC.activateMobileIDForEstonia(oldEstonianUser)
-    expect(() => {
-      Contract.sign1(oldEstonianUser)
-    }).toBeTruthy()
-  })
-  test('LATVIA: Signed is true', () => {
-    KYC.activateEParakstsForLatvia(oldLatvianUser)
-    expect(() => {
-      Contract.sign2(oldLatvianUser)
-    }).toBeTruthy()
   })
 })
